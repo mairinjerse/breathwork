@@ -17,6 +17,8 @@ export type SessionRecord = {
   /** Self-reported activation before/after, 1 (calm) – 5 (very activated). */
   before?: number;
   after?: number;
+  /** Set when the session was launched from in-the-moment support, e.g. 'panic'. */
+  supportId?: string;
 };
 
 export type ModuleProgress = {
