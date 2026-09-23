@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Blob } from '../../components/blob';
 import { Body, Button, Display, Icon, Scale } from '../../components/ui';
-import { getModule } from '../../content/curriculum';
+import { CURRICULUM, getModule } from '../../content/curriculum';
 import type { BreathPractice, GuidedPractice, Module } from '../../content/types';
 import type { Guidance } from '../../lib/progress';
 import {
@@ -421,3 +421,8 @@ const styles = StyleSheet.create({
   caption: { gap: 6, paddingHorizontal: 8, paddingBottom: space[3] },
   sideCue: { position: 'absolute', bottom: 0, flexDirection: 'row', gap: 120 },
 });
+
+/** Pre-render one page per module for the static web/PWA build. */
+export function generateStaticParams() {
+  return CURRICULUM.map((m) => ({ id: m.id }));
+}

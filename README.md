@@ -2,7 +2,7 @@
 
 A breathwork and nervous-system-regulation app that teaches the physiology well enough that you need it less over time. Secular, evidence-based, mastery model rather than habit loop.
 
-Built with Expo (SDK 57), Expo Router and TypeScript. It runs on iOS, Android and web from one codebase. All data is local-first (AsyncStorage) and there is no backend in v1.
+Built with Expo (SDK 57), Expo Router and TypeScript. The same codebase ships as a native iOS/Android app and as an installable, offline-capable PWA. All data is local-first (AsyncStorage on native, localStorage on web) and there is no backend in v1.
 
 ## Running it
 
@@ -14,6 +14,25 @@ npm run typecheck       # tsc --noEmit
 npm run lint            # eslint (expo config)
 ```
 
+### PWA (web)
+
+```bash
+npm run build:web       # expo export --platform web, then generates dist/sw.js
+npm run serve:web       # preview dist/ locally at http://localhost:3000
+```
+
+`dist/` is a plain static site: deploy it to any static host (Netlify, Vercel, Cloudflare Pages, EAS Hosting via `npx eas-cli@latest deploy`). Two hosting notes:
+- Serve over HTTPS (service workers require it; localhost is exempt).
+- Serve `/sw.js` with `Cache-Control: no-cache` so updates are picked up promptly.
+
+What makes it a PWA:
+- `public/manifest.webmanifest` and `public/icons/` (rendered from the canvas icon; includes a maskable icon for Android).
+- `src/app/+html.tsx`: the HTML shell, which links the manifest, sets iOS home-screen meta tags and registers the service worker in production builds only.
+- `scripts/generate-sw.mjs` + `scripts/sw-template.js`: after export, every page and asset is precached under a content-hashed version, so the installed app opens and runs fully offline. A new deploy installs a new version and drops the old cache.
+- Module and session pages are pre-rendered per module (`generateStaticParams`) so deep links work on static hosts.
+
+Web limitations to know about: haptics don't work in iOS Safari, keeping the screen awake depends on browser support, and iOS may clear a site's stored data if the PWA goes unused for a long stretch. Encourage people to use Export my data.
+
 Use `npx expo install <pkg>` to add dependencies so you get SDK-compatible versions. `AGENTS.md` has Expo-specific notes for AI pair-coding sessions.
 
 ## Structure
@@ -21,6 +40,7 @@ Use `npx expo install <pkg>` to add dependencies so you get SDK-compatible versi
 ```
 src/
   app/                    Expo Router routes (every file here is a screen)
+    +html.tsx             web HTML shell: manifest, iOS meta tags, service worker registration
     _layout.tsx           fonts, providers, onboarding guard
     onboarding.tsx        welcome → try 3 sighs → how it works
     (tabs)/               Home, Curriculum, Progress, Profile
@@ -62,5 +82,5 @@ The app icon, adaptive icon, splash and favicon in `assets/images` were rendered
 - **Onboarding, curriculum detail and settings** were built directly from the design system without mocks, so they're worth a look on the canvas.
 - **Curriculum copy** should be reviewed against the brand brief's voice, and the evidence notes checked by someone with a clinical or research background before launch.
 - **No audio.** Sessions are paced by the visual plus haptics. Voice or tone cues would be a natural addition.
-- **Data export** uses the system share sheet (JSON). There is no import or sync, by design for v1.
+- **Data export** uses the system share sheet (JSON), or a file download on browsers without one. There is no import or sync, by design for v1.
 - **State migrations**: bump `STATE_VERSION` in `store/app-state.tsx` and migrate in `hydrate` when the stored shape changes.

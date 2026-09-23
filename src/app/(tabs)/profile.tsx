@@ -24,7 +24,18 @@ export default function Profile() {
 
   const exportData = () => {
     const { sessions, checkIns, ownUses, progress } = state;
-    Share.share({ message: JSON.stringify({ progress, sessions, checkIns, ownUses }, null, 2) }).catch(() => {});
+    const json = JSON.stringify({ progress, sessions, checkIns, ownUses }, null, 2);
+    if (Platform.OS === 'web' && !globalThis.navigator?.share) {
+      // Most desktop browsers have no share sheet: download a file instead.
+      const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `exhale-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      return;
+    }
+    Share.share({ message: json }).catch(() => {});
   };
 
   return (

@@ -225,3 +225,8 @@ const styles = StyleSheet.create({
   evidence: { borderWidth: 1, borderRadius: radius.sm, padding: space[2], gap: 4 },
   cornerBlob: { position: 'absolute', right: -30, top: -30, opacity: 0.55, pointerEvents: 'none' },
 });
+
+/** Pre-render one page per module for the static web/PWA build. */
+export function generateStaticParams() {
+  return CURRICULUM.map((m) => ({ id: m.id }));
+}

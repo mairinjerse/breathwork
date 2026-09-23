@@ -44,7 +44,9 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "build:web": "expo export --platform web && node scripts/generate-sw.mjs",
+    "serve:web": "npx serve dist"
   },
   "private": true,
   "jest": {
