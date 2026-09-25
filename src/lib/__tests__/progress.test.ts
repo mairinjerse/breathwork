@@ -16,18 +16,18 @@ const done = { understood: 'x', guided: 'x', solo: 'x' };
 describe('moduleStatuses', () => {
   const ids = ['a', 'b', 'c', 'd'];
 
-  it('opens only the first module for a new user', () => {
-    expect(moduleStatuses(ids, {})).toEqual(['up-next', 'locked', 'locked', 'locked']);
+  it('opens every module for a new user', () => {
+    expect(moduleStatuses(ids, {})).toEqual(['up-next', 'up-next', 'up-next', 'up-next']);
   });
 
-  it('marks partial progress as in progress and unlocks in order', () => {
+  it('marks partial progress as in progress regardless of order', () => {
     const s = moduleStatuses(ids, { a: done, b: { understood: 'x' } });
-    expect(s).toEqual(['complete', 'in-progress', 'locked', 'locked']);
+    expect(s).toEqual(['complete', 'in-progress', 'up-next', 'up-next']);
     expect(currentModuleIndex(s)).toBe(1);
   });
 
-  it('keeps later modules locked even if they have stray progress', () => {
-    expect(moduleStatuses(ids, { c: done })).toEqual(['up-next', 'locked', 'locked', 'locked']);
+  it('marks modules complete out of order without locking the rest', () => {
+    expect(moduleStatuses(ids, { c: done })).toEqual(['up-next', 'up-next', 'complete', 'up-next']);
   });
 
   it('reports the end of the curriculum', () => {

@@ -45,7 +45,7 @@ export default function Curriculum() {
       <Card>
         <Body variant="strong">Where this ends</Body>
         <Body muted>
-          When you finish, you’ll have practised every technique both with the app and without it, and you’ll know which
+          When you finish, you’ll have practiced every technique both with the app and without it, and you’ll know which
           one to reach for in a given moment. That’s the point: needing this less.
         </Body>
       </Card>

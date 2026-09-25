@@ -107,7 +107,7 @@ export const CURRICULUM: Module[] = [
     ],
     why: [
       'The urge to breathe is driven mostly by carbon dioxide building up in your blood, not by running low on oxygen. People who are prone to anxiety tend to be more sensitive to that rising-CO2 signal, and it can feel like alarm.',
-      'The holds let CO2 rise a little, in a safe and controlled way. Practised regularly, this can make the "air hunger" signal less alarming.',
+      'The holds let CO2 rise a little, in a safe and controlled way. Practiced regularly, this can make the "air hunger" signal less alarming.',
       'Counting also occupies working memory, which leaves less room for the thought loop that was driving the stress.',
     ],
     evidence: {
@@ -181,7 +181,7 @@ export const CURRICULUM: Module[] = [
     why: [
       'You have pressure sensors in your major arteries (baroreceptors). When blood pressure rises, they slow the heart; when it falls, they speed it up. This is the baroreflex.',
       'Breathing at about six breaths a minute lines up the rhythm of your breath with the rhythm of that reflex, so the two amplify each other. Your heart rate swings more widely with each breath — which is what higher heart rate variability (HRV) means.',
-      'Practising regularly appears to strengthen the reflex itself, so your body gets better at settling on its own, even when you are not doing the exercise.',
+      'Practicing regularly appears to strengthen the reflex itself, so your body gets better at settling on its own, even when you are not doing the exercise.',
     ],
     evidence: {
       level: 'strong',
@@ -210,7 +210,7 @@ export const CURRICULUM: Module[] = [
     title: 'Breath Under Pressure',
     summary: 'Using breath with your eyes open, mid-situation, without anyone noticing.',
     what: [
-      'Everything so far has been practised sitting quietly. This module is about using it in the middle of things: in a meeting, in traffic, on a call.',
+      'Everything so far has been practiced sitting quietly. This module is about using it in the middle of things: in a meeting, in traffic, on a call.',
       'The sequence is short: notice the early signal, take one or two quiet sighs, then keep your exhale longer than your inhale for a few breaths while you carry on.',
     ],
     why: [
@@ -258,7 +258,7 @@ export const CURRICULUM: Module[] = [
       prompt: 'Next time you notice tension during your day, run the sequence without opening the app. Come back and log it here.',
       seconds: 60,
     },
-    whenToUse: 'Mid-situation, with people around, when stepping away to practise isn’t an option.',
+    whenToUse: 'Mid-situation, with people around, when stepping away to practice isn’t an option.',
   },
   {
     id: 'orienting',
@@ -420,7 +420,7 @@ export const CURRICULUM: Module[] = [
     id: 'your-toolkit',
     part: 'own',
     title: 'Choosing Your Tool',
-    summary: 'Read your own state, pick the technique, practise without guidance.',
+    summary: 'Read your own state, pick the technique, practice without guidance.',
     what: [
       'You now have ten techniques. This last module is about matching them to what is going on.',
       'Activated or jolted: the physiological sigh, or breath under pressure. Spinning thoughts: grounding or orienting. Winding down: 4-7-8 or resonance. Wired and restless: movement. Overwhelmed: the butterfly hug.',
@@ -428,7 +428,7 @@ export const CURRICULUM: Module[] = [
     why: [
       'None of these techniques is best in general. They act on different parts of the same system — heart rate, attention, threat detection, muscle tension — so the right one depends on which part is driving how you feel.',
       'The goal of this curriculum was never for you to open the app every day. It was for you to recognise your own state and know what to do about it, anywhere.',
-      'After this module you will have practised every technique both with guidance and on your own. The app stays here as a reference and a place to track whether things are changing — not as something you need.',
+      'After this module you will have practiced every technique both with guidance and on your own. The app stays here as a reference and a place to track whether things are changing — not as something you need.',
     ],
     evidence: {
       level: 'moderate',
