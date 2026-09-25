@@ -28,7 +28,7 @@ export default function RootLayout() {
 }
 
 function Root() {
-  const { ready, state } = useAppState();
+  const { ready } = useAppState();
   const { name, c } = useTheme();
   const [fontsLoaded] = useFonts({
     STIXTwoText_500Medium,
@@ -49,21 +49,16 @@ function Root() {
     <View style={{ flex: 1 }}>
       <StatusBar style={name === 'night' ? 'light' : 'dark'} />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: c.surface100 } }}>
-        <Stack.Protected guard={state.onboarded}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="module/[id]" />
-          <Stack.Screen name="check-in" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="support" options={{ presentation: 'modal' }} />
-        </Stack.Protected>
-        <Stack.Protected guard={!state.onboarded}>
-          <Stack.Screen name="onboarding" />
-        </Stack.Protected>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="module/[id]" />
+        <Stack.Screen name="check-in" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="support" options={{ presentation: 'modal' }} />
         <Stack.Screen
           name="session/[id]"
           options={{ presentation: 'fullScreenModal', animation: 'fade', gestureEnabled: false }}
         />
       </Stack>
-      {state.onboarded ? <SupportButton /> : null}
+      <SupportButton />
     </View>
   );
 }

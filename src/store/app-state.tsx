@@ -30,7 +30,6 @@ export type Settings = {
 
 export type AppState = {
   version: number;
-  onboarded: boolean;
   settings: Settings;
   progress: Record<string, ModuleProgress>;
   sessions: SessionRecord[];
@@ -40,7 +39,6 @@ export type AppState = {
 
 export const initialState: AppState = {
   version: STATE_VERSION,
-  onboarded: false,
   settings: { name: '', theme: 'day', haptics: true, sessionRatings: true },
   progress: {},
   sessions: [],
@@ -50,7 +48,6 @@ export const initialState: AppState = {
 
 type Action =
   | { type: 'hydrate'; state: AppState }
-  | { type: 'finishOnboarding' }
   | { type: 'updateSettings'; settings: Partial<Settings> }
   | { type: 'completeStep'; moduleId: string; step: ModuleStep }
   | { type: 'addSession'; session: SessionRecord }
@@ -62,8 +59,6 @@ function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'hydrate':
       return action.state;
-    case 'finishOnboarding':
-      return { ...state, onboarded: true };
     case 'updateSettings':
       return { ...state, settings: { ...state.settings, ...action.settings } };
     case 'completeStep': {
@@ -101,7 +96,6 @@ function hydrate(raw: string | null): AppState {
 }
 
 type Actions = {
-  finishOnboarding(): void;
   updateSettings(settings: Partial<Settings>): void;
   completeStep(moduleId: string, step: ModuleStep): void;
   addSession(session: Omit<SessionRecord, 'id'>): void;
@@ -132,7 +126,6 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const actions = useMemo<Actions>(
     () => ({
-      finishOnboarding: () => dispatch({ type: 'finishOnboarding' }),
       updateSettings: (settings) => dispatch({ type: 'updateSettings', settings }),
       completeStep: (moduleId, step) => dispatch({ type: 'completeStep', moduleId, step }),
       addSession: (session) => dispatch({ type: 'addSession', session: { ...session, id: newId() } }),

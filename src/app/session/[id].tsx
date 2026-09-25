@@ -61,7 +61,7 @@ export default function Session() {
   const module = getAnyModule(params.id);
   const guidance: Guidance = params.guidance === 'solo' ? 'solo' : 'guided';
   const fromSupport = params.from === 'support';
-  const ratings = state.settings.sessionRatings && params.from !== 'onboarding' && !fromSupport;
+  const ratings = state.settings.sessionRatings && !fromSupport;
 
   const [stage, setStage] = useState<Stage>(ratings ? 'before' : 'running');
   const [before, setBefore] = useState<number>();
@@ -96,7 +96,7 @@ export default function Session() {
       after: afterRating,
       supportId: params.supportId,
     });
-    if (r.completed && params.from !== 'onboarding' && !fromSupport) {
+    if (r.completed && !fromSupport) {
       actions.completeStep(module.id, guidance);
     }
   };
@@ -150,14 +150,7 @@ export default function Session() {
       ) : null}
 
       {stage === 'summary' ? (
-        <Summary
-          module={module}
-          guidance={guidance}
-          before={before}
-          after={after}
-          onDone={close}
-          fromOnboarding={params.from === 'onboarding'}
-        />
+        <Summary module={module} guidance={guidance} before={before} after={after} onDone={close} />
       ) : null}
     </SafeAreaView>
   );
@@ -382,14 +375,12 @@ function Summary({
   before,
   after,
   onDone,
-  fromOnboarding,
 }: {
   module: Module;
   guidance: Guidance;
   before?: number;
   after?: number;
   onDone: () => void;
-  fromOnboarding: boolean;
 }) {
   const shifted = before !== undefined && after !== undefined;
   return (
@@ -397,7 +388,7 @@ function Summary({
       <View style={styles.topBar} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: space[3] }}>
         <Blob size={140} variant="full" />
-        <Display style={{ textAlign: 'center' }}>{fromOnboarding ? 'That’s the one.' : 'Done.'}</Display>
+        <Display style={{ textAlign: 'center' }}>Done.</Display>
         {shifted ? (
           <Body style={{ textAlign: 'center' }}>
             You went from {before} to {after}
@@ -405,14 +396,10 @@ function Summary({
           </Body>
         ) : null}
         <Body muted style={{ textAlign: 'center', maxWidth: 340 }}>
-          {fromOnboarding
-            ? 'A double inhale re-opens collapsed air sacs in your lungs; the long exhale offloads CO2 and slows your heart. The curriculum explains the rest.'
-            : guidance === 'solo'
-              ? 'You did that without the app pacing you. That’s the skill.'
-              : module.whenToUse}
+          {guidance === 'solo' ? 'You did that without the app pacing you. That’s the skill.' : module.whenToUse}
         </Body>
       </View>
-      <Button label={fromOnboarding ? 'Continue' : 'Back'} onPress={onDone} />
+      <Button label="Back" onPress={onDone} />
     </View>
   );
 }
