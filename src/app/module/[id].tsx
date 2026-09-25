@@ -7,7 +7,6 @@ import { CURRICULUM, PARTS, getModule, moduleIndex } from '../../content/curricu
 import type { EvidenceLevel } from '../../content/types';
 import { isModuleComplete } from '../../lib/progress';
 import { humanDuration, practiceSeconds } from '../../lib/timeline';
-import { useCurriculum } from '../../lib/use-curriculum';
 import { useAppState } from '../../store/app-state';
 import { radius, space } from '../../theme/tokens';
 import { useTheme } from '../../theme/use-theme';
@@ -21,7 +20,6 @@ const EVIDENCE: Record<EvidenceLevel, string> = {
 export default function ModuleDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { state, actions } = useAppState();
-  const { statuses } = useCurriculum();
   const { c } = useTheme();
   const module = getModule(id);
   const index = moduleIndex(id);
@@ -37,12 +35,11 @@ export default function ModuleDetail() {
     </Pressable>
   );
 
-  if (!module || statuses[index] === 'locked') {
+  if (!module) {
     return (
       <Screen>
         {back}
-        <Display size="md">{module ? 'Not open yet' : 'Module not found'}</Display>
-        <Body muted>{module ? 'Finish the previous module first — each one builds on the last.' : ''}</Body>
+        <Display size="md">Module not found</Display>
       </Screen>
     );
   }
@@ -115,7 +112,7 @@ export default function ModuleDetail() {
           {humanDuration(practiceSeconds(module.practice))} · the app paces you with cues
         </Body>
         <Button
-          label={p.guided ? 'Practise again' : 'Start guided practice'}
+          label={p.guided ? 'Practice again' : 'Start guided practice'}
           kind={p.guided ? 'secondary' : 'primary'}
           icon="play"
           onPress={() => startSession('guided')}

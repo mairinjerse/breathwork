@@ -100,7 +100,7 @@ export default function Profile() {
       <Card>
         <Toggle
           label="Haptic cues"
-          hint="A light tap at each phase change, so you can practise with your eyes closed."
+          hint="A light tap at each phase change, so you can practice with your eyes closed."
           value={s.haptics}
           onChange={(haptics) => actions.updateSettings({ haptics })}
         />

@@ -19,8 +19,6 @@ export function statusLine(status: ModuleStatus, progress: ModuleProgress | unde
       return `In progress · ${stepsDone(progress)} of 3`;
     case 'up-next':
       return 'Up next';
-    case 'locked':
-      return 'Locked';
   }
 }
 
@@ -36,7 +34,6 @@ export function ModuleRow({
   progress?: ModuleProgress;
 }) {
   const { c } = useTheme();
-  const locked = status === 'locked';
   const active = status === 'in-progress' || status === 'up-next';
 
   const marker =
@@ -44,23 +41,15 @@ export function ModuleRow({
       <BlobDot size={32} variant={DOTS[index % DOTS.length]} />
     ) : (
       <View style={[styles.marker, { backgroundColor: c.line }]}>
-        {locked ? (
-          <Icon name="lock" size={13} color={c.inkMuted} />
-        ) : (
-          <Body variant="label" muted>
-            {index + 1}
-          </Body>
-        )}
+        <Body variant="label" muted>
+          {index + 1}
+        </Body>
       </View>
     );
 
   const content = (
     <View
-      style={[
-        styles.row,
-        { backgroundColor: c.surface200, borderColor: active ? c.accent + '4d' : 'transparent' },
-        locked && { opacity: 0.55 },
-      ]}>
+      style={[styles.row, { backgroundColor: c.surface200, borderColor: active ? c.accent + '4d' : 'transparent' }]}>
       {marker}
       <View style={{ flex: 1, gap: 2 }}>
         <Body variant="strong" style={{ fontSize: 14.5 }}>
@@ -70,16 +59,14 @@ export function ModuleRow({
           {statusLine(status, progress)} · {PARTS[module.part].title.toLowerCase()}
         </Body>
       </View>
-      {status === 'complete' ? <Icon name="check" size={16} color={c.inkMuted} /> : null}
-      {!locked && status !== 'complete' ? <Icon name="chevron-right" size={16} color={c.inkMuted} /> : null}
+      {status === 'complete' ? (
+        <Icon name="check" size={16} color={c.inkMuted} />
+      ) : (
+        <Icon name="chevron-right" size={16} color={c.inkMuted} />
+      )}
     </View>
   );
 
-  if (locked) {
-    return (
-      <View accessibilityLabel={`${module.title}, locked. Finish the previous module to open it.`}>{content}</View>
-    );
-  }
   return (
     <Link href={{ pathname: '/module/[id]', params: { id: module.id } }} asChild>
       <Pressable accessibilityRole="link" accessibilityLabel={`${module.title}, ${statusLine(status, progress)}`}>

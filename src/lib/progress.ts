@@ -43,7 +43,7 @@ export type CheckIn = {
 /** A time the user used a technique without opening a session in the app. */
 export type OwnUse = { id: string; at: string; moduleId?: string };
 
-export type ModuleStatus = 'complete' | 'in-progress' | 'up-next' | 'locked';
+export type ModuleStatus = 'complete' | 'in-progress' | 'up-next';
 
 export const MODULE_STEPS = ['understood', 'guided', 'solo'] as const;
 export type ModuleStep = (typeof MODULE_STEPS)[number];
@@ -58,23 +58,18 @@ export function isModuleComplete(p: ModuleProgress | undefined): boolean {
 }
 
 /**
- * Modules unlock in order: each one opens when the previous is complete.
- * The curriculum is a sequence with an end, not a menu.
+ * All modules are open at once — the curriculum is a suggested order,
+ * not a gate.
  */
 export function moduleStatuses(
   moduleIds: string[],
   progress: Record<string, ModuleProgress | undefined>,
 ): ModuleStatus[] {
-  let previousComplete = true;
   return moduleIds.map((id) => {
     const p = progress[id];
-    let status: ModuleStatus;
-    if (!previousComplete) status = 'locked';
-    else if (isModuleComplete(p)) status = 'complete';
-    else if (stepsDone(p) > 0) status = 'in-progress';
-    else status = 'up-next';
-    previousComplete = status === 'complete';
-    return status;
+    if (isModuleComplete(p)) return 'complete';
+    if (stepsDone(p) > 0) return 'in-progress';
+    return 'up-next';
   });
 }
 
