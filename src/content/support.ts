@@ -9,7 +9,7 @@ import type { IconName } from '../components/ui';
  * regular curriculum list.
  */
 
-export type SupportStateId = 'sudden-sadness' | 'boredom' | 'panic' | 'anger' | 'overwhelm';
+export type SupportStateId = 'sudden-sadness' | 'boredom' | 'panic' | 'anger' | 'overwhelm' | 'focus';
 
 export type SupportState = {
   id: SupportStateId;
@@ -105,26 +105,26 @@ export const SUPPORT_STATES: SupportState[] = [
     id: 'panic',
     label: 'Panic',
     tagline: 'Fastest way to take the edge off, right now.',
-    icon: 'wind',
+    icon: 'zap',
     moduleId: 'physiological-sigh',
   },
   {
     id: 'anger',
     label: 'Anger',
     tagline: 'Use up the energy before you react.',
-    icon: 'zap',
+    icon: 'thermometer',
     moduleId: 'shaking',
   },
   {
     id: 'overwhelm',
     label: 'Overwhelm',
     tagline: 'Too much coming in — narrow it down.',
-    icon: 'eye',
+    icon: 'layers',
     moduleId: 'grounding',
   },
   {
     id: 'sudden-sadness',
-    label: 'Sudden sadness',
+    label: 'Sadness',
     tagline: 'Something steadying, instead of your phone.',
     icon: 'heart',
     moduleId: 'name-and-soothe',
@@ -135,6 +135,13 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Sit with it. It passes on its own.',
     icon: 'clock',
     moduleId: 'urge-surfing',
+  },
+  {
+    id: 'focus',
+    label: 'Need to focus',
+    tagline: 'Steady, alert breathing before you dive in.',
+    icon: 'target',
+    moduleId: 'box-breathing',
   },
 ];
 
