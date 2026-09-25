@@ -7,7 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "exhale",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f7f6f3",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.exhale"
@@ -15,7 +15,7 @@
     "android": {
       "package": "app.exhale",
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#f7f6f3",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
@@ -31,7 +31,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#f7f6f3",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 120
         }

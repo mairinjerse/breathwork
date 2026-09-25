@@ -20,7 +20,7 @@ export default function Root({ children }: PropsWithChildren) {
 
         {/* Installable app */}
         <link rel="manifest" href="/manifest.webmanifest" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#f7f6f3" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -39,7 +39,7 @@ export default function Root({ children }: PropsWithChildren) {
 }
 
 const baseStyles = `
-html, body { background-color: #ffffff; overscroll-behavior: none; }
+html, body { background-color: #f7f6f3; overscroll-behavior: none; }
 body { -webkit-tap-highlight-color: transparent; }
 `;
 
