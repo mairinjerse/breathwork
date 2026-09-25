@@ -26,6 +26,6 @@ export function SupportOrb({ state, onPress, size = 72 }: { state: SupportState;
 }
 
 const styles = StyleSheet.create({
-  wrap: { alignItems: 'center', gap: 8, width: '31%' },
+  wrap: { alignItems: 'center', gap: 10, width: 96 },
   orb: { alignItems: 'center', justifyContent: 'center', borderRadius: radius.full },
 });

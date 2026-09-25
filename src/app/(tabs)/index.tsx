@@ -11,14 +11,6 @@ import { useAppState } from '../../store/app-state';
 import { space } from '../../theme/tokens';
 import { useTheme } from '../../theme/use-theme';
 
-function greeting(now = new Date()): string {
-  const h = now.getHours();
-  if (h < 5) return 'Good evening';
-  if (h < 12) return 'Good morning';
-  if (h < 18) return 'Good afternoon';
-  return 'Good evening';
-}
-
 export default function Home() {
   const { state } = useAppState();
   const { current, completed, total, graduated } = useCurriculum();
@@ -33,21 +25,25 @@ export default function Home() {
 
   return (
     <Screen>
-      <Body variant="bodySm" muted style={{ paddingTop: space[1] }}>
-        {greeting()}
-        {state.settings.name ? `, ${state.settings.name}` : ''}
-      </Body>
-
-      <View style={{ gap: 4 }}>
-        <Display size="md">How are you, right now?</Display>
-        <Body muted>Pick what’s closest. You’ll go straight into it — nothing else to decide.</Body>
+      <View style={{ gap: 4, paddingTop: space[1] }}>
+        <Display size="md">What’s going on?</Display>
+        <Body muted>Pick what’s closest. You’ll go straight into it.</Body>
       </View>
 
       <View style={{ alignItems: 'center', paddingVertical: space[2] }}>
-        <Blob size={180} variant="full" drift />
+        <Blob size={220} variant="full" drift />
       </View>
 
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: space[3] }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          columnGap: 18,
+          rowGap: 16,
+          maxWidth: 210,
+          alignSelf: 'center',
+        }}>
         {SUPPORT_STATES.map((s) => (
           <SupportOrb key={s.id} state={s} onPress={() => open(s)} />
         ))}

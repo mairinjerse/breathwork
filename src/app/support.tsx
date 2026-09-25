@@ -25,14 +25,23 @@ export default function SupportScreen() {
       </Pressable>
       <View style={{ gap: space[1] }}>
         <Display>What’s going on?</Display>
-        <Body muted>Pick what’s closest. You’ll go straight into it — nothing else to decide.</Body>
+        <Body muted>Pick what’s closest. You’ll go straight into it.</Body>
       </View>
 
       <View style={{ alignItems: 'center', paddingVertical: space[2] }}>
-        <Blob size={140} variant="full" drift />
+        <Blob size={220} variant="full" drift />
       </View>
 
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: space[3] }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          columnGap: 18,
+          rowGap: 16,
+          maxWidth: 210,
+          alignSelf: 'center',
+        }}>
         {SUPPORT_STATES.map((s) => (
           <SupportOrb key={s.id} state={s} onPress={() => open(s)} />
         ))}

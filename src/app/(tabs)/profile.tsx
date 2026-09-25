@@ -51,7 +51,7 @@ export default function Profile() {
         <TextInput
           value={s.name}
           onChangeText={(name) => actions.updateSettings({ name })}
-          placeholder="Optional — used in the greeting"
+          placeholder="Optional"
           placeholderTextColor={c.inkMuted}
           accessibilityLabel="Name"
           style={{
