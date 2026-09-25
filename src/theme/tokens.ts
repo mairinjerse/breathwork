@@ -15,18 +15,23 @@ export type ColorTokens = {
   line: string;
 };
 
+/**
+ * surface100 is the page background, surface200 is what sits on top of it
+ * (cards, rows). The Figma file uses a warm page with lighter surfaces
+ * floating on it — the opposite of a plain white page — hence the swap here.
+ */
 export const colors: Record<ThemeName, ColorTokens> = {
   day: {
-    surface100: '#ffffff',
-    surface200: '#f7f6f3',
+    surface100: '#f7f6f3',
+    surface200: '#ffffff',
     ink: '#14120f',
     inkMuted: '#6b6459',
     accent: '#e8622a',
     line: 'rgba(20,18,15,0.1)',
   },
   night: {
-    surface100: '#10201f',
-    surface200: '#16302c',
+    surface100: '#16302c',
+    surface200: '#10201f',
     ink: '#efe9da',
     inkMuted: '#9fb3ac',
     accent: '#e7a552',

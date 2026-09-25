@@ -56,7 +56,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export function Blob({ size, variant = 'full', drift = false, scale, softness = 0.42, style }: Props) {
+export function Blob({ size, variant = 'full', drift = false, scale, softness = 0.16, style }: Props) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
   const spots = VARIANTS[variant];
   const [t] = useState(() => new Animated.Value(0));

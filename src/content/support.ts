@@ -1,6 +1,7 @@
 import { getModule } from './curriculum';
 import type { Module } from './types';
 import type { IconName } from '../components/ui';
+import type { glow } from '../theme/tokens';
 
 /**
  * In-the-moment support: five named acute states, each routed straight into a
@@ -9,7 +10,7 @@ import type { IconName } from '../components/ui';
  * regular curriculum list.
  */
 
-export type SupportStateId = 'sudden-sadness' | 'boredom' | 'panic' | 'anger' | 'overwhelm';
+export type SupportStateId = 'sudden-sadness' | 'boredom' | 'panic' | 'anger' | 'overwhelm' | 'focus';
 
 export type SupportState = {
   id: SupportStateId;
@@ -17,6 +18,8 @@ export type SupportState = {
   tagline: string;
   icon: IconName;
   moduleId: string;
+  /** The blob motif hue this state's orb is drawn in. */
+  glow: keyof typeof glow;
 };
 
 export const SUPPORT_MODULES: Module[] = [
@@ -105,29 +108,33 @@ export const SUPPORT_STATES: SupportState[] = [
     id: 'panic',
     label: 'Panic',
     tagline: 'Fastest way to take the edge off, right now.',
-    icon: 'wind',
+    icon: 'zap',
     moduleId: 'physiological-sigh',
+    glow: 'orange',
   },
   {
     id: 'anger',
     label: 'Anger',
     tagline: 'Use up the energy before you react.',
-    icon: 'zap',
+    icon: 'thermometer',
     moduleId: 'shaking',
+    glow: 'red',
   },
   {
     id: 'overwhelm',
     label: 'Overwhelm',
     tagline: 'Too much coming in — narrow it down.',
-    icon: 'eye',
+    icon: 'layers',
     moduleId: 'grounding',
+    glow: 'lavender',
   },
   {
     id: 'sudden-sadness',
-    label: 'Sudden sadness',
+    label: 'Sadness',
     tagline: 'Something steadying, instead of your phone.',
     icon: 'heart',
     moduleId: 'name-and-soothe',
+    glow: 'blue',
   },
   {
     id: 'boredom',
@@ -135,6 +142,15 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Sit with it. It passes on its own.',
     icon: 'clock',
     moduleId: 'urge-surfing',
+    glow: 'pink',
+  },
+  {
+    id: 'focus',
+    label: 'Need to focus',
+    tagline: 'Steady, alert breathing before you dive in.',
+    icon: 'target',
+    moduleId: 'box-breathing',
+    glow: 'yellow',
   },
 ];
 
