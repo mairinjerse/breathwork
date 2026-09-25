@@ -7,7 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Blob } from '../../components/blob';
 import { Body, Button, Display, Icon, Scale } from '../../components/ui';
-import { CURRICULUM, getModule } from '../../content/curriculum';
+import { CURRICULUM } from '../../content/curriculum';
+import { SUPPORT_MODULE_IDS, getAnyModule } from '../../content/support';
 import type { BreathPractice, GuidedPractice, Module } from '../../content/types';
 import type { Guidance } from '../../lib/progress';
 import {
@@ -48,12 +49,19 @@ export default function Session() {
       deactivateKeepAwake(KEEP_AWAKE_TAG).catch(() => {});
     };
   }, []);
-  const params = useLocalSearchParams<{ id: string; guidance?: Guidance; from?: string; cycles?: string }>();
+  const params = useLocalSearchParams<{
+    id: string;
+    guidance?: Guidance;
+    from?: string;
+    cycles?: string;
+    supportId?: string;
+  }>();
   const { state, actions } = useAppState();
   const { c } = useTheme();
-  const module = getModule(params.id);
+  const module = getAnyModule(params.id);
   const guidance: Guidance = params.guidance === 'solo' ? 'solo' : 'guided';
-  const ratings = state.settings.sessionRatings && params.from !== 'onboarding';
+  const fromSupport = params.from === 'support';
+  const ratings = state.settings.sessionRatings && params.from !== 'onboarding' && !fromSupport;
 
   const [stage, setStage] = useState<Stage>(ratings ? 'before' : 'running');
   const [before, setBefore] = useState<number>();
@@ -86,8 +94,9 @@ export default function Session() {
       completed: r.completed,
       before,
       after: afterRating,
+      supportId: params.supportId,
     });
-    if (r.completed && params.from !== 'onboarding') {
+    if (r.completed && params.from !== 'onboarding' && !fromSupport) {
       actions.completeStep(module.id, guidance);
     }
   };
@@ -424,5 +433,5 @@ const styles = StyleSheet.create({
 
 /** Pre-render one page per module for the static web/PWA build. */
 export function generateStaticParams() {
-  return CURRICULUM.map((m) => ({ id: m.id }));
+  return [...CURRICULUM.map((m) => ({ id: m.id })), ...SUPPORT_MODULE_IDS.map((id) => ({ id }))];
 }

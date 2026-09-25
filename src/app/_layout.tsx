@@ -8,8 +8,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { SupportButton } from '../components/support-button';
 import { AppStateProvider, useAppState } from '../store/app-state';
 import { useTheme } from '../theme/use-theme';
 
@@ -44,13 +46,14 @@ function Root() {
   if (!loaded) return null;
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <StatusBar style={name === 'night' ? 'light' : 'dark'} />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: c.surface100 } }}>
         <Stack.Protected guard={state.onboarded}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="module/[id]" />
           <Stack.Screen name="check-in" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="support" options={{ presentation: 'modal' }} />
         </Stack.Protected>
         <Stack.Protected guard={!state.onboarded}>
           <Stack.Screen name="onboarding" />
@@ -60,6 +63,7 @@ function Root() {
           options={{ presentation: 'fullScreenModal', animation: 'fade', gestureEnabled: false }}
         />
       </Stack>
-    </>
+      {state.onboarded ? <SupportButton /> : null}
+    </View>
   );
 }
