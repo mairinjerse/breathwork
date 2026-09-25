@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
 import { Blob } from '../components/blob';
-import { SupportOrb } from '../components/support-orb';
+import { SupportRow } from '../components/support-row';
 import { Body, Display, Icon, Screen } from '../components/ui';
 import { SUPPORT_STATES, type SupportState } from '../content/support';
 import { space } from '../theme/tokens';
@@ -19,7 +19,7 @@ export default function SupportScreen() {
   };
 
   return (
-    <Screen edges={['top', 'bottom']} scroll={false}>
+    <Screen edges={['top', 'bottom']}>
       <Pressable accessibilityRole="button" accessibilityLabel="Close" hitSlop={12} onPress={() => router.back()}>
         <Icon name="x" size={20} color={c.inkMuted} />
       </Pressable>
@@ -29,21 +29,12 @@ export default function SupportScreen() {
       </View>
 
       <View style={{ alignItems: 'center', paddingVertical: space[2] }}>
-        <Blob size={220} variant="full" drift />
+        <Blob size={160} variant="full" drift />
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          columnGap: 18,
-          rowGap: 16,
-          maxWidth: 210,
-          alignSelf: 'center',
-        }}>
+      <View style={{ gap: 10 }}>
         {SUPPORT_STATES.map((s) => (
-          <SupportOrb key={s.id} state={s} onPress={() => open(s)} />
+          <SupportRow key={s.id} state={s} onPress={() => open(s)} />
         ))}
       </View>
     </Screen>

@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
 import { Blob } from '../../components/blob';
-import { SupportOrb } from '../../components/support-orb';
+import { SupportRow } from '../../components/support-row';
 import { Body, Card, Display, Icon, ProgressBar, Row, Screen } from '../../components/ui';
 import { SUPPORT_STATES, type SupportState } from '../../content/support';
 import { isCheckInDue, stepsDone } from '../../lib/progress';
@@ -34,18 +34,9 @@ export default function Home() {
         <Blob size={220} variant="full" drift />
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          columnGap: 18,
-          rowGap: 16,
-          maxWidth: 210,
-          alignSelf: 'center',
-        }}>
+      <View style={{ gap: 10 }}>
         {SUPPORT_STATES.map((s) => (
-          <SupportOrb key={s.id} state={s} onPress={() => open(s)} />
+          <SupportRow key={s.id} state={s} onPress={() => open(s)} />
         ))}
       </View>
 
