@@ -47,6 +47,8 @@ export type BlobVariant = 'full' | 'accent' | 'cool' | 'warm' | 'dusk';
 type Props = {
   size: number;
   variant?: BlobVariant;
+  /** Single solid hue instead of a variant's multi-spot mix — same gradient/mask/blur treatment, one color. */
+  color?: string;
   /** Very slow drift. Only the practice screen should turn this on. */
   drift?: boolean;
   /** Externally driven scale (e.g. breath pacing). */
@@ -56,9 +58,9 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export function Blob({ size, variant = 'full', drift = false, scale, softness = 0.16, style }: Props) {
+export function Blob({ size, variant = 'full', color, drift = false, scale, softness = 0.16, style }: Props) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
-  const spots = VARIANTS[variant];
+  const spots: Spot[] = color ? [{ x: 0.5, y: 0.5, r: 0.62, color }] : VARIANTS[variant];
   const [t] = useState(() => new Animated.Value(0));
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { getModule } from './curriculum';
 import type { Module } from './types';
 import type { IconName } from '../components/ui';
+import type { glow } from '../theme/tokens';
 
 /**
  * In-the-moment support: five named acute states, each routed straight into a
@@ -17,6 +18,8 @@ export type SupportState = {
   tagline: string;
   icon: IconName;
   moduleId: string;
+  /** The blob motif hue this state's orb is drawn in. */
+  glow: keyof typeof glow;
 };
 
 export const SUPPORT_MODULES: Module[] = [
@@ -107,6 +110,7 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Fastest way to take the edge off, right now.',
     icon: 'zap',
     moduleId: 'physiological-sigh',
+    glow: 'orange',
   },
   {
     id: 'anger',
@@ -114,6 +118,7 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Use up the energy before you react.',
     icon: 'thermometer',
     moduleId: 'shaking',
+    glow: 'red',
   },
   {
     id: 'overwhelm',
@@ -121,6 +126,7 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Too much coming in — narrow it down.',
     icon: 'layers',
     moduleId: 'grounding',
+    glow: 'lavender',
   },
   {
     id: 'sudden-sadness',
@@ -128,6 +134,7 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Something steadying, instead of your phone.',
     icon: 'heart',
     moduleId: 'name-and-soothe',
+    glow: 'blue',
   },
   {
     id: 'boredom',
@@ -135,6 +142,7 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Sit with it. It passes on its own.',
     icon: 'clock',
     moduleId: 'urge-surfing',
+    glow: 'pink',
   },
   {
     id: 'focus',
@@ -142,6 +150,7 @@ export const SUPPORT_STATES: SupportState[] = [
     tagline: 'Steady, alert breathing before you dive in.',
     icon: 'target',
     moduleId: 'box-breathing',
+    glow: 'yellow',
   },
 ];
 
