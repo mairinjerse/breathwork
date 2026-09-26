@@ -1,3 +1,4 @@
+import { FOCUSED_BREATHING } from './breathe';
 import { getModule } from './curriculum';
 import type { Module } from './types';
 import type { IconName } from '../components/ui';
@@ -157,5 +158,6 @@ export const SUPPORT_STATES: SupportState[] = [
 export const SUPPORT_MODULE_IDS = SUPPORT_MODULES.map((m) => m.id);
 
 export function getAnyModule(id: string): Module | undefined {
+  if (id === FOCUSED_BREATHING.id) return FOCUSED_BREATHING;
   return getModule(id) ?? SUPPORT_MODULES.find((m) => m.id === id);
 }

@@ -40,6 +40,8 @@ export default function Home() {
         ))}
       </View>
 
+      <JustBreatheCard />
+
       {!graduated ? <ContinueCard index={current} /> : null}
 
       {checkInDue ? (
@@ -48,6 +50,26 @@ export default function Home() {
         </Pressable>
       ) : null}
     </Screen>
+  );
+}
+
+function JustBreatheCard() {
+  const { c } = useTheme();
+  return (
+    <Pressable accessibilityRole="button" accessibilityLabel="Just breathe" onPress={() => router.push('/breathe')}>
+      <Card>
+        <Row>
+          <Icon name="wind" size={16} color={c.accent} />
+          <View style={{ flex: 1, gap: 2 }}>
+            <Body variant="strong">Just breathe</Body>
+            <Body variant="bodySm" muted>
+              No reason needed. Pick a breathing pattern, or simply follow your breath.
+            </Body>
+          </View>
+          <Icon name="chevron-right" size={16} color={c.inkMuted} />
+        </Row>
+      </Card>
+    </Pressable>
   );
 }
 
