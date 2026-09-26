@@ -51,6 +51,7 @@ function Root() {
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: c.surface100 } }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="module/[id]" />
+        <Stack.Screen name="breathe" />
         <Stack.Screen name="check-in" options={{ presentation: 'modal' }} />
         <Stack.Screen name="support" options={{ presentation: 'modal' }} />
         <Stack.Screen

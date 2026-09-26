@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Blob } from '../../components/blob';
 import { Body, Button, Display, Icon, Scale } from '../../components/ui';
+import { FOCUSED_BREATHING } from '../../content/breathe';
 import { CURRICULUM } from '../../content/curriculum';
 import { SUPPORT_MODULE_IDS, getAnyModule } from '../../content/support';
 import type { BreathPractice, GuidedPractice, Module } from '../../content/types';
@@ -60,8 +61,9 @@ export default function Session() {
   const { c } = useTheme();
   const module = getAnyModule(params.id);
   const guidance: Guidance = params.guidance === 'solo' ? 'solo' : 'guided';
-  const fromSupport = params.from === 'support';
-  const ratings = state.settings.sessionRatings && !fromSupport;
+  // Support and "Just breathe" sessions are free practice: no ratings, no curriculum progress.
+  const freePractice = params.from === 'support' || params.from === 'breathe';
+  const ratings = state.settings.sessionRatings && !freePractice;
 
   const [stage, setStage] = useState<Stage>(ratings ? 'before' : 'running');
   const [before, setBefore] = useState<number>();
@@ -96,7 +98,7 @@ export default function Session() {
       after: afterRating,
       supportId: params.supportId,
     });
-    if (r.completed && !fromSupport) {
+    if (r.completed && !freePractice) {
       actions.completeStep(module.id, guidance);
     }
   };
@@ -420,5 +422,9 @@ const styles = StyleSheet.create({
 
 /** Pre-render one page per module for the static web/PWA build. */
 export function generateStaticParams() {
-  return [...CURRICULUM.map((m) => ({ id: m.id })), ...SUPPORT_MODULE_IDS.map((id) => ({ id }))];
+  return [
+    ...CURRICULUM.map((m) => ({ id: m.id })),
+    ...SUPPORT_MODULE_IDS.map((id) => ({ id })),
+    { id: FOCUSED_BREATHING.id },
+  ];
 }
